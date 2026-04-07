@@ -1,0 +1,31 @@
+name: Security Scan TESTTTTTTTTTTTE
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  gitleaks:
+    name: Gitleaks - Détection de secrets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Analyse tout l'historique git
+
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+// ⚠️ Exercice : token volontairement exposé pour tester Gitleaks
+const config = {
+  appName: "my-app",
+  githubToken: "ghp_A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6Q7r8",
+};
+
+module.exports = config;
